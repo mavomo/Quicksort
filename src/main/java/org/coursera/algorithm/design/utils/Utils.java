@@ -15,7 +15,7 @@ public class Utils {
 	 * Shows content of the array
 	 * @param inputArray : array containing the values
 	 */
-	public static void displayValues(Integer[] inputArray) {
+	public static void displayValues(int[] inputArray) {
 		if(inputArray.length == 0){
 			System.out.println("The array is empty");
 		}
@@ -27,21 +27,21 @@ public class Utils {
 	 * 
 	 * @param inputArray: Map containing the values 
 	 */	
-	public static void displayHashMap(Map<Integer[], Long> inputArray) {
+	public static void displayHashMap(Map<int[], Long> inputArray) {
 		if(inputArray.size() == 0){
 			System.out.println("The Map is empty");
 		}		
-		Integer[] tab = extractArray(inputArray);
+		int[] tab = extractArray(inputArray);
 		Long val = extractValues(inputArray); 
 		displaySequence(tab);
 		System.out.println("Total count of inversions : " + val);
 	}
 	
-	public static void displayCountInversion(Map<Integer[], Long> inputArray){
+	public static void displayCountInversion(Map<int[], Long> inputArray){
 		if(inputArray.size() == 0){
 			System.out.println("The Map is empty");
 		}	
-		Integer[] tab = extractArray(inputArray);
+		int[] tab = extractArray(inputArray);
 
 		System.out.println("Over #"+ tab.length +" entries, there have been #"+  extractValues(inputArray) + " inversions");
 
@@ -51,7 +51,7 @@ public class Utils {
 	 * Format and outputs the sequence in the console.
 	 * @param tab : sequence to output
 	 */
-	public static void displaySequence(Integer[] tab) {
+	public static void displaySequence(int[] tab) {
 		String result = ""; 
 		for(int index=0; index < tab.length; index++) {
 			result += tab[index];
@@ -68,9 +68,9 @@ public class Utils {
 	 * @param inputArray : 
 	 * @return
 	 */
-	public static Integer[] extractArray(Map<Integer[], Long> inputArray) {
-		Integer[] leftValues = null;
-		for (Integer[] key : inputArray.keySet() ) {
+	public static int[] extractArray(Map<int[], Long> inputArray) {
+		int[] leftValues = null;
+		for (int[] key : inputArray.keySet() ) {
 			//copying the keys from the 
 			leftValues = key;
 		}
@@ -82,7 +82,7 @@ public class Utils {
 	 * @param inputArray : map 
 	 * @return
 	 */
-	public static Long extractValues(Map<Integer[], Long> inputArray) {
+	public static Long extractValues(Map<int[], Long> inputArray) {
 		Long value = null;
 		for ( Long val : inputArray.values() ) {
 			//copying the keys from the 
