@@ -26,20 +26,18 @@ public class Quicksort {
 		
 	}
 	
-	public static void partitionizeAndSort(int[] inputArray, int startIndex, int endIndex){
+	public static int[] partitionizeAndSort(int[] inputArray, int startIndex, int endIndex){
 		//General case 
 		//Position of the partition index
-		int nouveauPivot = partitionize(inputArray, startIndex, endIndex);
-		if(startIndex < nouveauPivot - 1){
+		if (endIndex-1 <= startIndex){
+			return inputArray;
+		}else{
+			int nouveauPivot = partitionize(inputArray, startIndex, endIndex);
 			partitionizeAndSort(inputArray, startIndex, nouveauPivot);	
-		}else {
-			if(nouveauPivot+1 < endIndex+1){
-			partitionizeAndSort(inputArray, nouveauPivot, endIndex);
-			}
+			partitionizeAndSort(inputArray, nouveauPivot, endIndex);	
+			return inputArray;
 		}
-				
 		
-			
 	}
 	
 	private static int partitionize(int[] inputArray, int start, int end){
