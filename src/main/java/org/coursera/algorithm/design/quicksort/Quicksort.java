@@ -1,8 +1,6 @@
 package org.coursera.algorithm.design.quicksort;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 
 
@@ -14,28 +12,31 @@ import java.util.Map;
  */
 public class Quicksort {
 	
-	private static Long nbComparison=0L;
+	static long nbComparison;
 	
 	public static void main(String[] args) throws IOException {
 		//int[] inputData = {5,3,6,4,8,0,1};
-		int[] inputData = {6,5,4,3,2,1,0};
+//		int[] inputData = {6,5,4,3,2,1,0};
+//		
+//		for(int i=0; i< inputData.length; i++){
+//			System.out.println(inputData[i]);
+//		}
+//		System.out.println("=============== Partionning and sorting ==============");
+//		partitionizeAndSort(inputData, 0, inputData.length);		
+//		for(int i=0; i< inputData.length; i++){
+//			System.out.println(inputData[i]);
+//		}		
 		
-		for(int i=0; i< inputData.length; i++){
-			System.out.println(inputData[i]);
-		}
-		System.out.println("=============== Partionning and sorting ==============");
-		partitionizeAndSort(inputData, 0, inputData.length);		
-		for(int i=0; i< inputData.length; i++){
-			System.out.println(inputData[i]);
-		}		
+		Integer[] testEntries = {3,9,8,4,6,10,2,5,7,1};	
+		System.out.println("=============== Quicksort and counting inversions:: my version ==============");
+		quicksortAndCountComparison(testEntries, 0, testEntries.length-1);
+		System.out.println(nbComparison);
 		
-		int[] testEntries = {3,9,8,4,6,10,2,5,7,1};		
-		
-		int[] outputEntries = quicksortAndCountComparison(testEntries, 0, testEntries.length);
-		
-		System.out.println("=============== Quicksort and counting inversions ==============");
-		//System.out.println("Nb comparison " + nbComparison);
-		System.out.println(outputEntries.length + nbComparison);
+		Integer[] sample = {3,9,8,4,6,10,2,5,7,1};	
+
+		System.out.println("=============== Quicksort and counting inversions:: the other version ==============");
+		Qraft.QuickSort(sample, 0, sample.length -1);
+		System.out.println(Qraft.noOfComparisons);
 		
 	}
 	
@@ -46,7 +47,7 @@ public class Quicksort {
 	 * @param endIndex
 	 * @return
 	 */
-	public static int[] partitionizeAndSort(int[] inputArray, int startIndex, int endIndex){
+	private static int[] partitionizeAndSort(int[] inputArray, int startIndex, int endIndex){
 		//Base case
 		if (endIndex-1 <= startIndex){
 			return inputArray;
@@ -59,20 +60,17 @@ public class Quicksort {
 		}
 	}
 	
-	public static int[] quicksortAndCountComparison(int[] inputArray, int startIndex, int endIndex){	
-		Map<int[], Long> output = new HashMap<>();
-		if (endIndex-1 <= startIndex){
-			return inputArray;
-		}else{			
+	public static Integer[] quicksortAndCountComparison(Integer[] inputArray, int startIndex, int endIndex){	
+		if(endIndex > startIndex){		
 			//General case		
-			nbComparison++;
-			int newPivot = partitionizeV2(inputArray, startIndex, endIndex);			
-			quicksortAndCountComparison(inputArray, startIndex, newPivot);			
-			quicksortAndCountComparison(inputArray, newPivot, endIndex);
-		
-			
-			return inputArray;
+			//add(endIndex-startIndex);
+			nbComparison += (endIndex-startIndex);
+			int newPivot = partitionizeV2(inputArray, startIndex, endIndex);
+			quicksortAndCountComparison(inputArray, startIndex, newPivot-1);			
+			quicksortAndCountComparison(inputArray, newPivot+1, endIndex);	
 		}
+		
+		return inputArray;
 	}
 	
 	/**
@@ -87,10 +85,10 @@ public class Quicksort {
 			int pivot=inputArray[start];							
 			//Boundary of the latest element <p
 		int innerCounter = start + 1;
-		for (int i = start + 1; i < end; i++) {
+		for (int i = start + 1; i <= end; i++) {
 			// If the current input is lower that the pivot then swap pivots.
 			if (i < inputArray.length) {
-				if (inputArray[i] <= pivot) {
+				if (inputArray[i] < pivot) {
 					int tmp = inputArray[i];
 					inputArray[i] = inputArray[innerCounter];
 					inputArray[innerCounter] = tmp;
@@ -113,32 +111,26 @@ public class Quicksort {
 	 * @param end : last element in the array
 	 * @return the new pivot of the array around which we'll partition the array
 	 */
-	private static int partitionizeV2(int[] inputArray, int start, int end){
+	private static int partitionizeV2(Integer[] inputArray, int start, int end){
 		//The pivot corresponds to the first element of the Array	
-		Map<Integer, Long> result = new HashMap<>();
-		
-		int pivot=inputArray[start];							
+		int pivot=inputArray[start];	
 		//Boundary of the latest element <p
-		int innerCounter = start + 1;
-		for (int i = start + 1; i < end; i++) {
+		int innerCounter = start+1;
+		
+		for (int i = start+1; i <= end; i++) {
 			// If the current input is lower that the pivot then swap pivots.
-			if (i < inputArray.length) {
-				if (inputArray[i] <= pivot) {
+				if (inputArray[i] < pivot) {
 					int tmp = inputArray[i];
 					inputArray[i] = inputArray[innerCounter];
 					inputArray[innerCounter] = tmp;
 					innerCounter++;
-					nbComparison++;
-				}
-			}
-		}
-		
+				}		
+		}		
 		//Putting the pivot at the right position
 		int tmp = inputArray[start]; 
 		inputArray[start] = inputArray[innerCounter-1];
 		inputArray[innerCounter-1] = tmp;
-		return innerCounter;
-	
+		return (innerCounter-1);	
 	}
 	
 	
