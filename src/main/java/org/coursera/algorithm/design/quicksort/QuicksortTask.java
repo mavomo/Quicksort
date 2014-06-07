@@ -6,26 +6,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.coursera.algorithm.design.utils.Utils;
-
 public class QuicksortTask {
-	public static void main(String[] args) throws IOException {
-		InputStreamReader isr10Entries = Utils.getFile("sequence10.txt");
-		Integer[] output10 = processEntry(isr10Entries);
-		
-		System.out.println("======================== Programming Assignement - week 2 - 10 entries ==============================");
-		
-		InputStreamReader isr100Entries = Utils.getFile("sequence100.txt");
-		Integer[] output100 = processEntry(isr100Entries);
-		
-		System.out.println("======================== Programming Assignement - week 2 - 100 entries ==============================");
-
-		InputStreamReader isr1000Entries = Utils.getFile("sequence100.txt");
-		Integer[] output1000 = processEntry(isr1000Entries);
-		
-		System.out.println("======================== Programming Assignement - week 2 - 1000 entries ==============================");
-	}
-
 	/**
 	 * Builds an array containing the sequence of a given file then apply the
 	 * count inversion algorithm
@@ -36,10 +17,9 @@ public class QuicksortTask {
 	 *         occured.
 	 * @throws IOException
 	 */
-	public static Integer[] processEntry(InputStreamReader isr)
+	public static Integer[] proceedEntry(InputStreamReader isr)
 			throws IOException {
 		List<Integer> entrySequence = new ArrayList<>();
-
 		if (isr != null) {
 			BufferedReader br = new BufferedReader(isr);
 			String lineContent = null;
@@ -49,8 +29,6 @@ public class QuicksortTask {
 			}
 		}
 		Integer[] temp = entrySequence.toArray(new Integer[0]);
-		Quicksort.quicksortAndCountComparison(entrySequence.toArray(new Integer[0]), 0, temp.length);
-
 		return temp;
 
 	}
